@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>EchoTunes - Your personal playlist</title>
+</head>
+
+<body>
+    <nav>
+        <!-- This is for the navigation bar of the website -->
+        <ul>
+            <li><img src="../data/Images/Preview.png" id="brand-logo"></li>
+            <div class="clickables">
+                <li>About</li>
+                <li>Contact us</li>
+            </div>
+        </ul>
+    </nav>
+    <!-- The main container to show the song list and information about the current playing song -->
+    <div class="container">
+        <div class="songList">
+            <!-- Song elements will be generated dynamically -->
+        </div>
+        <div class="songInfo">
+            <!-- Element values for this div will generated dynamically -->
+            <img src="" id="coverPhoto">
+            <h2 id="playingSongName"></h2>
+            <p id="playingArtist"></p>
+        </div>
+    </div>
+    <!-- The below div contains element for the music player -->
+    <div class="player">
+        <input type="range" min="0" max="100" id="progressBar">
+        <div class="timings">
+            <div id="completed-duration">00:00</div>
+            <div id="remaining-duration">00:00</div>
+        </div>
+        <div class="btnControls">
+            <i class="fa-solid fa-3x fa-step-backward"></i>
+            <i class="fa-solid fa-3x fa-play-circle"></i>
+            <i class="fa-solid fa-3x fa-step-forward"></i>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/cb02d685fd.js" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
