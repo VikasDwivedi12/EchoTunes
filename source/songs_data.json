@@ -30,5 +30,13 @@
         "singerName" : "Arjun Kanungo",
         "coverPath" : "../data/cover/gallan_tipsiyan.jpg",
         "duration": "3:14"
+    },
+    {
+        "id" : 4,
+        "songName" : "Danger",
+        "songPath" : "../data/songs/danger.mp3",
+        "singerName" : "Arjun Kanungo",
+        "coverPath" : "../data/cover/Danger-Hindi-2023-20230727122357-500x500.jpg",
+        "duration" : "3:01"
     }
 ]

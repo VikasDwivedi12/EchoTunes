@@ -101,10 +101,6 @@ nav ul li:hover{
     align-items: center;
     justify-content: space-evenly;
 }
-.playing-gif{
-    width: 20px;
-    height: 20px;
-}
 .songInfo{
     border-radius: 10px;
     margin-left: 1rem;

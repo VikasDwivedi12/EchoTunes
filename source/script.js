@@ -27,6 +27,8 @@ let currentDuration;
 
 const apiUrl = './songs_data.json';
 let playingStatus = 0;
+let randomPlayStatus = 0;
+
 let audioElement;
 progressBar.value = 0;
 
@@ -38,6 +40,19 @@ function formatTime(seconds) {
   
 function padZero(number) {
     return (number < 10 ? '0' : '') + number;
+}
+
+function playRandom(){
+    //Function to play the song randomly.
+    const randomIndex = Math.floor(Math.random() * songName.length);
+
+    currentSongName = songName[randomIndex];
+    currentSongPath = songPath[randomIndex];
+    currentCoverPath = coverPath[randomIndex];
+    currentDuration = duration[randomIndex];
+    currentSingerName = singerName[randomIndex];
+
+    changeSong(currentSongName, currentCoverPath, currentDuration, currentSongPath, currentSingerName);
 }
 
 function cleanPreviousGifs(){
@@ -84,6 +99,12 @@ function changeSong(song_Name, coverPath, duration, songPath, singerName){
         duration2.innerHTML = duration;
     })
 
+    //Code when User slides the progress bar.
+    progressBar.addEventListener('change', function(){
+        let currentTime = (progressBar.value * audioElement.duration)/100;
+        audioElement.currentTime = currentTime;
+    })
+
     cleanPreviousGifs();
     gifUpdate();
 }
@@ -106,6 +127,7 @@ function generateElements(sName, Cpath, dur, Spath, sgName){
     gifIcon.style.opacity = 0;
     
     newElement.addEventListener('click', function(){
+        randomPlayStatus = 1;
         playBtn.classList.remove("fa-play-circle");
         playBtn.classList.add("fa-pause-circle");
 
@@ -153,7 +175,11 @@ function generateElements(sName, Cpath, dur, Spath, sgName){
 
 //Event listener for the play-pause button
 playBtn.addEventListener('click', function(){
-    if(playingStatus === 0){
+    if(randomPlayStatus === 0){
+        playRandom();
+        randomPlayStatus = 1;
+    }
+    else if(playingStatus === 0){
         audioElement.play();
         playingStatus = 1;
         playBtn.classList.remove('fa-play-circle');
@@ -171,45 +197,41 @@ playBtn.addEventListener('click', function(){
 
 //Adding the event listener for the next button.
 stepForward.addEventListener('click', function(){
-    const indexValue = songName.indexOf(currentSongName);
+    let indexValue = songName.indexOf(currentSongName);
 
     if(indexValue != (songName.length - 1)){
-        currentSongName = songName[songName.indexOf(currentSongName) + 1];
-        currentSongPath = songPath[songPath.indexOf(currentSongPath) + 1];
-        currentSingerName = singerName[singerName.indexOf(currentSingerName) + 1];
-        currentCoverPath = coverPath[coverPath.indexOf(currentCoverPath) + 1];
-        currentDuration = duration[duration.indexOf(currentDuration) + 1];
+        indexValue++;
     }
     else{
-        currentSongName = songName[0];
-        currentSongPath = songPath[0];
-        currentSingerName = singerName[0];
-        currentCoverPath = coverPath[0];
-        currentDuration = duration[0];
+        indexValue = 0;
     }
+
+    currentSongName = songName[indexValue];
+    currentSongPath = songPath[indexValue];
+    currentSingerName = singerName[indexValue];
+    currentCoverPath = coverPath[indexValue];
+    currentDuration = duration[indexValue];
 
     changeSong(currentSongName, currentCoverPath, currentDuration, currentSongPath, currentSingerName);
 });
 
 //Adding the event listener for the previous button.
 stepBackward.addEventListener('click', function(){
-    const indexValue = songName.indexOf(currentSongName);
+    let indexValue = songName.indexOf(currentSongName);
     const lastIndex = songName.length - 1;
 
     if(indexValue != 0){
-        currentSongName = songName[songName.indexOf(currentSongName) - 1];
-        currentSongPath = songPath[songPath.indexOf(currentSongPath) - 1];
-        currentSingerName = singerName[singerName.indexOf(currentSingerName) - 1];
-        currentCoverPath = coverPath[coverPath.indexOf(currentCoverPath) - 1];
-        currentDuration = duration[duration.indexOf(currentDuration) - 1];
+        indexValue--;
     }
     else{
-        currentSongName = songName[lastIndex];
-        currentSongPath = songPath[lastIndex];
-        currentSingerName = singerName[lastIndex];
-        currentCoverPath = coverPath[lastIndex];
-        currentDuration = duration[lastIndex];
+        indexValue = lastIndex;
     }
+
+    currentSongName = songName[indexValue];
+    currentSongPath = songPath[indexValue];
+    currentSingerName = singerName[indexValue];
+    currentCoverPath = coverPath[indexValue];
+    currentDuration = duration[indexValue];
 
     changeSong(currentSongName, currentCoverPath, currentDuration, currentSongPath, currentSingerName);
 });
